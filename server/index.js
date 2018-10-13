@@ -5,7 +5,7 @@ const app = express();
 // We might have several express applications in one app
 
 app.get("/", (req, res) => {
-  res.send({ hi: "there" });
+  res.send({ bye: "whatever" });
 });
 
 // Whenever heroku runs our app, it has the ability to inject environment variables. Env variables are set in the underline runtime in Node. Heroku has the ability of pass us runtime configuration. It says: look at the underline environment and verify which port we should use.
