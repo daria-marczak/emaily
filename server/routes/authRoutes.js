@@ -1,6 +1,6 @@
 const passport = require('passport');
 
-module.exports = () => {
+module.exports = (app) => {
   app.get(
     '/auth/google', // The user that comes in on the route needs to be authenticated with passport using the Google Strategy
     passport.authenticate('google', {
