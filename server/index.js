@@ -3,8 +3,10 @@ const mongoose = require("mongoose");
 
 const keys = require("./config/keys");
 require("./services/passport");
+require("./models/User");
 
 mongoose.connect(keys.mongoURI);
+// Mongoose will create a new collection. We need to create a model class that automatically creates a collection inside of Mongo. Then whenever user signs in, a new record will be saved to the database.
 
 // We might have several express applications in one app
 const app = express();
