@@ -2,8 +2,9 @@ const express = require('express'); // CommonJS modules. The "import" is ES2015 
 const mongoose = require("mongoose");
 
 const keys = require("./config/keys");
-require("./services/passport");
 require("./models/User");
+// We need to require the User model before passport as passport is using the User model
+require("./services/passport");
 
 mongoose.connect(keys.mongoURI);
 // Mongoose will create a new collection. We need to create a model class that automatically creates a collection inside of Mongo. Then whenever user signs in, a new record will be saved to the database.
