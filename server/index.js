@@ -1,6 +1,10 @@
 const express = require('express'); // CommonJS modules. The "import" is ES2015 modules syntax
+const mongoose = require("mongoose");
 
+const keys = require("./config/keys");
 require("./services/passport");
+
+mongoose.connect(keys.mongoURI);
 
 // We might have several express applications in one app
 const app = express();
