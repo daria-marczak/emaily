@@ -9,6 +9,10 @@ module.exports = (app) => {
   );
 
   app.get("/auth/google/callback", passport.authenticate("google"));
+
+  app.get("/api/current_user", (req, res) => {
+    res.send(req.user); // We receive the user as it is in Mongo
+  });
 }
 
 // We are exporting a function from here so that it has index's app instance access

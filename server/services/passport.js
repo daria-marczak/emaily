@@ -22,6 +22,7 @@ passport.deserializeUser((id, done) => {
 			done(null, user);
 		});
 });
+// This turns user id into a user and then it's added in request object as req.user
 
 passport.use(
 	new GoogleStrategy(
