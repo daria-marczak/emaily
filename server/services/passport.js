@@ -15,9 +15,20 @@ passport.use(
 			callbackURL: '/auth/google/callback',
 		},
 		(accessToken, refreshToken, profile, done) => {
-			new User({ googleID: profile.id }).save();
-			// This creates a new record (instance) of a user. This does not save this to the database. It only exists in the express API
-			// only the method .save() will save it to the database
+			User.findOne({ googleID: profile.id })
+				.then((existingUser) => {
+					if (existingUser) {
+						// We already have a record of this user
+						done(null, existingUser);
+						// Null means that everyting went well. Done is the argument provided by passport.
+					} else {
+						new User({ googleID: profile.id }).save()
+							.then(user => done(null, user)); // We need to inform passport that the authentication is done
+						// This creates a new record (instance) of a user. This does not save this to the database. It only exists in the express API
+					// only the method .save() will save it to the database
+					}
+				});
+			// User.findOne() does not return the user directly. It returns a promise
 		}
 	)
 );
