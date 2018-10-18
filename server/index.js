@@ -1,5 +1,8 @@
 const express = require('express'); // CommonJS modules. The "import" is ES2015 modules syntax
 const mongoose = require("mongoose");
+const cookieSession = require("cookie-session");
+const passport = require("passport");
+// Express does not have direct knowledge on how to use cookies
 
 const keys = require("./config/keys");
 require("./models/User");
@@ -11,6 +14,16 @@ mongoose.connect(keys.mongoURI);
 
 // We might have several express applications in one app
 const app = express();
+
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000, // How long a cookie can exist in the browser
+    keys: [keys.cookieKey] // To encrypt the cookie
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 require("./routes/authRoutes")(app);
 // This is completely valid JavaScript. When we require the authRoutes, we require a function
