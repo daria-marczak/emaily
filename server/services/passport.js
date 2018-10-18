@@ -7,6 +7,22 @@ const keys = require("../config/keys");
 const User = mongoose.model("users");
 // We can pull something out of mongoose using only one argument in this function. Two arguments (as in models/User) means we are going to load something into it
 
+passport.serializeUser((user, done) => {
+	done(null, user.id);
+	// done is the callback we have to call. User.id is the identifying information
+	// the id is actually the id assigned by mongo, not the google one
+});
+
+// It's more important to care about the ID from Mongo, as there can be many different authentication methods (Facebook, LinkedIn etc.)
+// This creates a cookie for us to authenticate user in the app
+
+passport.deserializeUser((id, done) => {
+	User.findById(id)
+		.then(user => {
+			done(null, user);
+		});
+});
+
 passport.use(
 	new GoogleStrategy(
 		{
