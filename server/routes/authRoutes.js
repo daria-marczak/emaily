@@ -21,7 +21,12 @@ module.exports = app => {
 		})
 	);
 
-	app.get('/auth/github/callback', passport.authenticate('github'));
+  app.get('/auth/github/callback', passport.authenticate('github'));
+  
+  app.get("/api/logout", (req, res) => {
+    req.logout(); // It's automatically attached to the passport. It takes the cookie and destroys it
+    res.send(req.user);
+  });
 };
 
 // We are exporting a function from here so that it has index's app instance access
