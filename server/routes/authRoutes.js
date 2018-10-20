@@ -11,7 +11,8 @@ module.exports = app => {
 	app.get('/auth/google/callback', passport.authenticate('google'));
 
 	app.get('/api/current_user', (req, res) => {
-		res.send(req.user); // We receive the user as it is in Mongo
+    res.send(req.user); // We receive the user as it is in Mongo
+    // res.send(req.session); // It contains the data that passport stores. Passport is actually looking at req.session, not really at the cookie
 	});
 
 	app.get(

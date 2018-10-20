@@ -22,6 +22,11 @@ app.use(
   })
 );
 
+//
+
+// App.use wires up middlewares (small apps that are doing some actions before it all starts up).
+// All those middlewares is going to take the request and do all the cookie-session, passport and deserialize have to do.
+
 app.use(passport.initialize());
 app.use(passport.session());
 
