@@ -23,7 +23,7 @@ module.exports = app => {
 	);
 
   app.get('/auth/github/callback', passport.authenticate('github'));
-  
+
   app.get("/api/logout", (req, res) => {
     req.logout(); // It's automatically attached to the passport. It takes the cookie and destroys it
     res.send(req.user);
